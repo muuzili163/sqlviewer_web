@@ -129,13 +129,46 @@ php -S localhost:8000
 
 ## 注意事项
 
-1. **CORS问题**: 由于浏览器的同源策略，直接打开HTML文件可能会遇到CORS问题。建议使用本地服务器运行。
+1. **CORS限制**: 
+   - ⚠️ 由于浏览器的同源策略（CORS），从本地文件或localhost访问远程API会被浏览器阻止
+   - **推荐部署方式**: 将此HTML应用部署到与API服务器同域的Web服务器上，或配置API服务器允许跨域请求
+   - **替代方案**: 使用浏览器扩展（如CORS Unblock）临时禁用CORS检查进行测试（仅用于开发测试）
+   - 本地测试时可查看 `demo.html` 了解界面效果
 
 2. **Cookie和Session**: 应用使用Cookie进行身份认证，请确保浏览器允许Cookie。
 
 3. **数据安全**: 本应用连接到 `https://sql-out.sdcreditech.com`，请确保在安全的网络环境下使用。
 
 4. **本地存储**: 应用使用LocalStorage存储用户配置（服务器选择、分页大小等），不会存储敏感信息。
+
+## 部署建议
+
+为了避免CORS问题，推荐以下部署方式：
+
+### 方式1: 部署到同域服务器
+将HTML文件部署到与API服务器 `sql-out.sdcreditech.com` 相同域名下的某个路径。
+
+### 方式2: 配置反向代理
+使用Nginx等反向代理，将API请求转发到后端服务器：
+
+```nginx
+location /api/ {
+    proxy_pass https://sql-out.sdcreditech.com/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+}
+```
+
+然后修改 `app.js` 中的 `baseUrl` 为 `/api`。
+
+### 方式3: API服务器配置CORS
+在API服务器端添加CORS响应头：
+```
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, OPTIONS
+Access-Control-Allow-Headers: Content-Type, x-csrftoken
+Access-Control-Allow-Credentials: true
+```
 
 ## 与C#版本的对比
 
@@ -166,16 +199,33 @@ php -S localhost:8000
 - `api`: API调用封装
 - `UIController`: UI控制器（主要业务逻辑）
 
-### 自定义配置
+## 自定义配置
 
 修改 `app.js` 中的 `config` 对象：
+
 ```javascript
 const config = {
-    baseUrl: 'https://sql-out.sdcreditech.com',  // API地址
-    csrftoken: '...',  // CSRF令牌
-    pageSize: 100      // 默认分页大小
+    baseUrl: 'https://sql-out.sdcreditech.com',  // API服务器地址
+    csrftoken: '0w8mYnqK82gNrkNmgs9CIn3UaaHpmaxY',  // 初始CSRF令牌（登录后会更新）
+    sessionid: '',      // 会话ID（登录后自动设置）
+    username: '',       // 用户名（登录后自动设置）
+    instanceName: '',   // 当前选择的实例
+    pageSize: 100       // 默认分页大小
 };
 ```
+
+**配置说明**：
+- `baseUrl`: API服务器地址，根据实际部署环境修改
+- `csrftoken`: 初始CSRF令牌，登录时会从服务器响应中获取新的token
+- `pageSize`: 默认每页显示的记录数，可在页面上通过下拉框修改
+
+## 测试账号
+
+可使用以下测试账号（由用户提供）：
+- 账号：`liweihan`
+- 密码：`li13625306340`
+
+**注意**：需要在正确的环境下部署（解决CORS问题）才能成功登录。
 
 ## 许可证
 
