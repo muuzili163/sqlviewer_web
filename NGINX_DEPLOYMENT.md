@@ -65,7 +65,7 @@ sudo chmod -R 755 /var/www/sqlviewer
 ```javascript
 const config = {
     baseUrl: '/api',  // 改为相对路径，指向Nginx代理
-    csrftoken: '0w8mYnqK82gNrkNmgs9CIn3UaaHpmaxY',
+    csrftoken: 'your-initial-csrf-token-here',  // 示例token，实际使用时会从服务器获取
     sessionid: '',
     username: '',
     instanceName: '',
@@ -129,7 +129,7 @@ server {
         
         # Cookie 处理
         proxy_cookie_domain sql-out.sdcreditech.com $host;
-        proxy_cookie_path / /api/;
+        proxy_cookie_path / /;
         
         # 超时设置
         proxy_connect_timeout 60s;
@@ -182,9 +182,7 @@ sudo firewall-cmd --reload
 http://your-domain.com
 ```
 
-使用测试账号登录：
-- 账号：`liweihan`
-- 密码：`li13625306340`
+使用您的账号登录进行测试。
 
 ## HTTPS 配置（推荐）
 
