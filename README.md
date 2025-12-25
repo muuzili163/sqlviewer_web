@@ -148,18 +148,30 @@ php -S localhost:8000
 ### 方式1: 部署到同域服务器
 将HTML文件部署到与API服务器 `sql-out.sdcreditech.com` 相同域名下的某个路径。
 
-### 方式2: 配置反向代理
-使用Nginx等反向代理，将API请求转发到后端服务器：
+### 方式2: 配置Nginx反向代理（推荐）
 
+使用Nginx反向代理，将API请求转发到后端服务器，避免CORS问题。
+
+**📖 查看完整配置指南**: [NGINX_DEPLOYMENT.md](./NGINX_DEPLOYMENT.md)
+
+简要步骤：
+1. 安装Nginx
+2. 部署静态文件到 `/var/www/sqlviewer`
+3. 修改 `app.js` 中的 `baseUrl` 为 `/api`
+4. 配置Nginx反向代理（参见详细文档）
+5. 访问 `http://your-domain.com`
+
+快速配置示例：
 ```nginx
 location /api/ {
-    proxy_pass https://sql-out.sdcreditech.com/;
-    proxy_set_header Host $host;
+    rewrite ^/api/(.*) /$1 break;
+    proxy_pass https://sql-out.sdcreditech.com;
+    proxy_set_header Host sql-out.sdcreditech.com;
     proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header x-csrftoken $http_x_csrftoken;
+    proxy_cookie_domain sql-out.sdcreditech.com $host;
 }
 ```
-
-然后修改 `app.js` 中的 `baseUrl` 为 `/api`。
 
 ### 方式3: API服务器配置CORS
 在API服务器端添加CORS响应头：
