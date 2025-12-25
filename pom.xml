@@ -36,12 +36,6 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-        <!-- HTTP Client for API forwarding -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
         <!-- Lombok (简化代码) -->
         <dependency>
             <groupId>org.projectlombok</groupId>

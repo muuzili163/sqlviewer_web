@@ -120,9 +120,12 @@ public class HttpClientUtil {
 
     /**
      * 创建HTTP客户端（支持HTTPS，忽略证书验证）
+     * 注意：忽略SSL证书验证是为了与C#版本保持一致，
+     * 在生产环境中应该实施proper证书验证
      */
     private static CloseableHttpClient createHttpClient() {
         try {
+            // 信任所有证书（与C#版本行为一致）
             SSLContext sslContext = SSLContextBuilder.create()
                     .loadTrustMaterial((chain, authType) -> true)
                     .build();

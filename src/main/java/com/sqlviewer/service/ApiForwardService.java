@@ -32,9 +32,10 @@ public class ApiForwardService {
         String url = apiBaseUrl + "/authenticate/";
         
         // 获取或初始化csrftoken
+        // 注意：初始token与C#版本保持一致，实际使用时会从服务器响应中更新
         String csrftoken = (String) session.getAttribute("csrftoken");
         if (csrftoken == null || csrftoken.isEmpty()) {
-            csrftoken = "0w8mYnqK82gNrkNmgs9CIn3UaaHpmaxY";
+            csrftoken = "0w8mYnqK82gNrkNmgs9CIn3UaaHpmaxY";  // 初始CSRF token
         }
         
         // 构建请求头
