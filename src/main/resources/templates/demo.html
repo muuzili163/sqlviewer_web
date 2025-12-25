@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archery互联网SQL审计 - MySQL数据查看器 (演示)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main Application -->
+    <div id="mainApp">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <select id="serverSelect" class="form-select">
+                    <option value="">选择服务器...</option>
+                    <option value="mysql-prod-01" selected>mysql-prod-01</option>
+                    <option value="mysql-prod-02">mysql-prod-02</option>
+                    <option value="mysql-test-01">mysql-test-01</option>
+                </select>
+                <select id="pageSizeSelect" class="form-select">
+                    <option value="50">50</option>
+                    <option value="100" selected>100</option>
+                    <option value="200">200</option>
+                    <option value="500">500</option>
+                    <option value="1000">1000</option>
+                </select>
+            </div>
+            <div class="top-bar-right">
+                <button id="userBtn" class="btn btn-secondary">用户：admin</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h3>数据库列表</h3>
+                </div>
+                <div class="tree-view" id="treeView">
+                    <div class="tree-node">
+                        <div class="tree-node-label">
+                            <span class="tree-icon expanded">▶</span><span>📁 ecommerce_db</span>
+                        </div>
+                        <div class="tree-children show">
+                            <div class="tree-table">📊 users</div>
+                            <div class="tree-table" style="background: #f1f3f5;">📊 products</div>
+                            <div class="tree-table">📊 orders</div>
+                            <div class="tree-table">📊 order_items</div>
+                        </div>
+                    </div>
+                    <div class="tree-node">
+                        <div class="tree-node-label">
+                            <span class="tree-icon">▶</span><span>📁 analytics_db</span>
+                        </div>
+                        <div class="tree-children">
+                        </div>
+                    </div>
+                    <div class="tree-node">
+                        <div class="tree-node-label">
+                            <span class="tree-icon">▶</span><span>📁 logs_db</span>
+                        </div>
+                        <div class="tree-children">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="tabs-container">
+                    <div class="tabs-header" id="tabsHeader">
+                        <button class="tab active">
+                            <span>products</span>
+                            <span class="tab-close">×</span>
+                        </button>
+                        <button class="tab">
+                            <span>users</span>
+                            <span class="tab-close">×</span>
+                        </button>
+                    </div>
+                    <div class="tabs-content" id="tabsContent">
+                        <div class="tab-pane active">
+                            <div class="query-panel">
+                                <div class="query-controls">
+                                    <button class="btn btn-sm btn-secondary">表结构</button>
+                                    <input type="text" class="query-input" placeholder="输入WHERE条件，例如：id > 100" value="price > 50">
+                                    <button class="btn btn-sm btn-success">查询</button>
+                                    <button class="btn btn-sm btn-secondary">清空排序</button>
+                                    <button class="btn btn-sm btn-secondary">复制SQL</button>
+                                </div>
+                                <div class="query-info">
+                                    <span>服务：mysql-prod-01</span>
+                                    <span>查询时间：0.0234s</span>
+                                    <span>条数：45</span>
+                                    <button class="btn btn-sm btn-secondary">计算总数</button>
+                                    <span>总数：1,234</span>
+                                </div>
+                                <div class="query-sql">select * from products where price > 50 order by id DESC</div>
+                            </div>
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="sorted-asc">id</th>
+                                            <th>name</th>
+                                            <th>category</th>
+                                            <th>price</th>
+                                            <th>stock</th>
+                                            <th>created_at</th>
+                                            <th>updated_at</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1234</td>
+                                            <td>无线蓝牙耳机</td>
+                                            <td>电子产品</td>
+                                            <td>299.00</td>
+                                            <td>156</td>
+                                            <td>2025-12-20 10:23:45</td>
+                                            <td>2025-12-24 15:30:22</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1233</td>
+                                            <td>智能手表</td>
+                                            <td>电子产品</td>
+                                            <td>899.00</td>
+                                            <td>89</td>
+                                            <td>2025-12-19 14:15:30</td>
+                                            <td>2025-12-24 09:10:15</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1232</td>
+                                            <td>运动鞋</td>
+                                            <td>服饰</td>
+                                            <td>459.00</td>
+                                            <td>234</td>
+                                            <td>2025-12-18 09:45:12</td>
+                                            <td>2025-12-23 16:20:45</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1231</td>
+                                            <td>笔记本电脑</td>
+                                            <td>电子产品</td>
+                                            <td>5999.00</td>
+                                            <td>45</td>
+                                            <td>2025-12-17 11:30:00</td>
+                                            <td>2025-12-24 14:05:30</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1230</td>
+                                            <td>办公椅</td>
+                                            <td>家具</td>
+                                            <td>799.00</td>
+                                            <td>67</td>
+                                            <td>2025-12-16 13:20:45</td>
+                                            <td>2025-12-22 10:15:20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1229</td>
+                                            <td>机械键盘</td>
+                                            <td>电子产品</td>
+                                            <td>399.00</td>
+                                            <td>178</td>
+                                            <td>2025-12-15 16:10:30</td>
+                                            <td>2025-12-24 11:45:10</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1228</td>
+                                            <td>显示器</td>
+                                            <td>电子产品</td>
+                                            <td>1299.00</td>
+                                            <td>92</td>
+                                            <td>2025-12-14 10:05:15</td>
+                                            <td>2025-12-23 13:30:45</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1227</td>
+                                            <td>背包</td>
+                                            <td>服饰</td>
+                                            <td>189.00</td>
+                                            <td>345</td>
+                                            <td>2025-12-13 14:50:20</td>
+                                            <td>2025-12-24 08:25:35</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

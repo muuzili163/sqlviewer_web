@@ -8,3 +8,23 @@ SQLViewer/SQLViewer/obj/
 *.dll
 *.exe
 *.pdb
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# Logs
+*.log
