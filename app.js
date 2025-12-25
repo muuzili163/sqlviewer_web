@@ -386,7 +386,7 @@ class UIController {
             dbName,
             tableName,
             sortColumn: '',
-            sortAsc: true,
+            sortAsc: true,  // Note: true means DESC order (matching C# version behavior)
             condition: ''
         };
 
@@ -547,6 +547,7 @@ class UIController {
         if (!tabPane) return;
 
         // Build SQL
+        // Note: sortAsc=true generates DESC order (matching C# version's confusing but intentional naming)
         let sql = `select * from ${tab.tableName}`;
         if (tab.condition) {
             sql += ` where ${tab.condition}`;
