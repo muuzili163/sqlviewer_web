@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archery互联网SQL审计 - MySQL数据查看器</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>请登录</h2>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="username">账号</label>
+                    <input type="text" id="username" class="form-control" placeholder="请输入账号">
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" class="form-control" placeholder="请输入密码">
+                </div>
+                <button id="loginBtn" class="btn btn-primary btn-block">登录</button>
+                <div id="loginError" class="error-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" style="display: none;">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <select id="serverSelect" class="form-select">
+                    <option value="">选择服务器...</option>
+                </select>
+                <select id="pageSizeSelect" class="form-select">
+                    <option value="50">50</option>
+                    <option value="100" selected>100</option>
+                    <option value="200">200</option>
+                    <option value="500">500</option>
+                    <option value="1000">1000</option>
+                </select>
+            </div>
+            <div class="top-bar-right">
+                <button id="userBtn" class="btn btn-secondary">用户</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h3>数据库列表</h3>
+                </div>
+                <div class="tree-view" id="treeView">
+                    <div class="tree-placeholder">请选择服务器...</div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="tabs-container">
+                    <div class="tabs-header" id="tabsHeader">
+                        <!-- Tabs will be added dynamically -->
+                    </div>
+                    <div class="tabs-content" id="tabsContent">
+                        <div class="welcome-screen">
+                            <div class="welcome-icon">📊</div>
+                            <h2>欢迎使用 MySQL 数据查看器</h2>
+                            <p>请从左侧选择数据库表来查看数据</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
