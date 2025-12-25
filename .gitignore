@@ -1,0 +1,30 @@
+# Build artifacts and dependencies
+SQLViewer/.vs/
+SQLViewer/SQLViewer/bin/
+SQLViewer/SQLViewer/obj/
+*.suo
+*.user
+*.cache
+*.dll
+*.exe
+*.pdb
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# Logs
+*.log
